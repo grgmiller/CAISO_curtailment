@@ -17,7 +17,6 @@ if not dataFile.exists(): #create the csv file if it doesnt yet exist
         w.writerow(['month','day','year','hour','curtailment_type','reason','curtail_category','fuel_type','curtailed_MWh','curtailed_MW'])
     print('  Created blank csv file')
 
-
 #create list of dates to retrieve
 def latest(): #return the date to start retreiving data
     if not Path(latestDateFile).exists():
@@ -65,6 +64,7 @@ for date in datelist:
             df = tabula.read_pdf(pdfFile + date + '.pdf', pages='4-5', lattice=True, java_options=['-Dsun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider'])
         except: 
             df = tabula.read_pdf(pdfFile + date + '.pdf', pages='4', lattice=True, java_options=['-Dsun.java2d.cmm=sun.java2d.cmm.kcms.KcmsServiceProvider'])
+   
 
     # need to add column for year (or just replace date column with strptime(date))
     df.columns = (['date','hour','curtailment_type','reason','fuel_type','curtailed_MWh','curtailed_MW'])
@@ -79,10 +79,7 @@ for date in datelist:
         df.to_csv(f, header=False, index=False)
     print('  {} appended to csv'.format(date))
 
-
-
-
-
+'''
 #download all past 5-min curtailment data
 def download_wait(f): #wait for files to finish downloading before continuing
     seconds = 0
@@ -138,10 +135,5 @@ def downloadCurtailment(browser, user_initialized): #download curtailment data (
 
             
 
-
-
-
-
-
-#merge reason data with 5-min data
-
+#merge curtailment reason data with 5-min data
+'''
