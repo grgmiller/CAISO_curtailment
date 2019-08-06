@@ -1,3 +1,4 @@
+#%%
 import csv
 import os
 import pandas as pd
@@ -44,7 +45,7 @@ while filedate_dt.date() < yesterday.date(): #create a list of dates to retrieve
     datelist.append(date)
 
 #update latest date file with last value from datelist
-with open(latestDateFile, 'w') as f:
+with open(latestDateFile, 'w', newline='') as f:
     f.seek(0)
     f.write(datelist[-1])
 
@@ -75,7 +76,7 @@ for date in datelist:
     df.drop(['date'], axis=1, inplace=True) #drop the date column
     df = df[['month','day','year','hour','curtailment_type','reason','curtail_category','fuel_type','curtailed_MWh','curtailed_MW']] #re-order columns
 
-    with open(dataFile,'a') as f:    #append dataframe to dataFile CSV
+    with open(dataFile,'a', newline='') as f:    #append dataframe to dataFile CSV
         df.to_csv(f, header=False, index=False)
     print('  {} appended to csv'.format(date))
 
